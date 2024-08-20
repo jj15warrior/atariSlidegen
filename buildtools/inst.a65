@@ -964,11 +964,16 @@ l_0004
 
 ; optimize OK (inst.pas), line = 6
 
-	lda #$19
+	lda #$0B
 	jsr GRAPH.INITGRAPH.@010180000
 
+; optimize OK (inst.pas), line = 7
+
+	lda #$00
+	sta I
+
 ; --- RepeatUntilProlog
-l_015C
+l_0160
 
 ; optimize OK (inst.pas), line = 10
 
@@ -982,26 +987,21 @@ l_015C
 	lda I
 	asl @
 	rol :STACKORIGIN+STACKWIDTH+10
-	asl @
-	rol :STACKORIGIN+STACKWIDTH+10
-	add #$05
+	add #$03
 	add I
 	sta GRAPH.BAR.X2
 	lda :STACKORIGIN+STACKWIDTH+10
 	adc #$00
 	sta GRAPH.BAR.X2+1
 	lda #$00
-	sta :STACKORIGIN+STACKWIDTH+12
+	sta GRAPH.BAR.X1+1
 	lda I
 	asl @
-	rol :STACKORIGIN+STACKWIDTH+12
-	asl @
-	rol :STACKORIGIN+STACKWIDTH+12
+	rol GRAPH.BAR.X1+1
 	add I
 	sta GRAPH.BAR.X1
-	lda :STACKORIGIN+STACKWIDTH+12
-	adc #$00
-	sta GRAPH.BAR.X1+1
+	scc
+	inc GRAPH.BAR.X1+1
 	lda #$00
 	sta GRAPH.BAR.Y1
 	sta GRAPH.BAR.Y1+1
@@ -1011,18 +1011,22 @@ l_015C
 	sta GRAPH.BAR.Y2+1
 	jsr GRAPH.BAR
 
-; optimize OK (inst.pas), line = 13
+; optimize OK (inst.pas), line = 12
 
-	lda I
-	cmp #$10
-	jne l_015C
-
-; --- RepeatUntilProlog
-l_0183
+	inc I
 
 ; optimize OK (inst.pas), line = 14
 
-	jmp l_0183
+	lda I
+	cmp #$10
+	jne l_0160
+
+; --- RepeatUntilProlog
+l_0191
+
+; optimize OK (inst.pas), line = 15
+
+	jmp l_0191
 
 ; ------------------------------------------------------------
 

@@ -1,3 +1,4 @@
+#!/bin/bash
 cd src/
 g++ main.cpp -o main
 chmod +x main
@@ -10,7 +11,8 @@ cd buildtools
 ./mp inst.pas -ipath:lib -target:a8
 ./mads inst.a65 -x -i:base
 mv inst.obx ../
-if $0 = 'run.sh'; then 
-    cd ..
-    atari800 -xe -nobasic inst.obx
+echo $1;
+if [ $1 = "run" ]; then 
+    cd ../
+    atari800 -xe -nobasic ./inst.obx
 fi
